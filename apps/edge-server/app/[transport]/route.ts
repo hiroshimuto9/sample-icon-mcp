@@ -1,6 +1,7 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import { getAllIcons, getIconSvg } from "sample-icon-api";
 import { z } from "zod";
+
 const handler = createMcpHandler(
   (server) => {
     server.tool(
@@ -31,11 +32,11 @@ const handler = createMcpHandler(
   },
   {}, // ← server.options（今回は未使用なので空オブジェクトでOK）
   {
-    basePath: "/api",
     verboseLogs: true, // 受信リクエストやツール名などがターミナルにログ表示される
     maxDuration: 60, // 長めのタイムアウト（Edge制限回避）
     redisUrl: process.env.REDIS_URL,
   }
 );
 
-export { handler as GET, handler as POST };
+// GET、POST、DELETEメソッドに対応（記事と同様）
+export { handler as GET, handler as POST, handler as DELETE };
