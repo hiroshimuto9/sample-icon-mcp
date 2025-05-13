@@ -1,17 +1,10 @@
 import { getIconSvg } from "sample-icon-api";
 import { NextRequest, NextResponse } from "next/server";
-
-interface Params {
-  params: {
-    name: string;
-  };
-}
-
 export async function GET(
-  request: NextRequest,
-  { params }: Params
+  _: NextRequest,
+  { params }: { params: Promise<{ name: string }> }
 ) {
-  const name = params.name;
+  const { name } = await params;
 
   if (!name) {
     return NextResponse.json({ error: "Icon name is required" }, { status: 400 });
