@@ -37,7 +37,11 @@ const handler = createMcpHandler(
     basePath: "",
     verboseLogs: true, // 受信リクエストやツール名などがターミナルにログ表示される
     maxDuration: 60, // 長めのタイムアウト（Edge制限回避）
-    redisUrl: process.env.REDIS_URL,
+    redisUrl: (process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview')
+                ? process.env.REDIS_URL
+                : process.env.NODE_ENV === 'development'
+                    ? process.env.REDIS_URL
+                    : undefined,
   }
 );
 
