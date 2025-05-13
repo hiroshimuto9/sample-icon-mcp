@@ -1,9 +1,15 @@
 import { getIconSvg } from "sample-icon-api";
 import { NextRequest, NextResponse } from "next/server";
 
+interface Params {
+  params: {
+    name: string;
+  };
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { name: string } }
+  { params }: Params
 ) {
   const name = params.name;
 

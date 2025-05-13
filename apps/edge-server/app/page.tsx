@@ -1,5 +1,6 @@
 import { getAllIcons } from "sample-icon-api";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Home() {
   // 利用可能なすべてのアイコンを取得
@@ -41,9 +42,11 @@ export default async function Home() {
           >
             <div className="p-6 flex flex-col items-center">
               <div className="w-16 h-16 flex items-center justify-center mb-4 bg-slate-100 dark:bg-slate-700 rounded-lg p-3 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors">
-                <img
+                <Image
                   src={`/api/icons/${icon}`}
                   alt={`${icon} icon`}
+                  width={48}
+                  height={48}
                   className="w-full h-full text-slate-700 dark:text-white"
                 />
               </div>
