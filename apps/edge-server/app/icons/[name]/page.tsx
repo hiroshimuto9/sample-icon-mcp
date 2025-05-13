@@ -4,9 +4,9 @@ import Link from "next/link";
 export default async function IconDetailPage({
   params
 }: {
-  params: { name: string }
+  params: Promise<{ name: string }>
 }) {
-  const { name } = params;
+  const { name } = await params;
 
   try {
     // アイコンのSVGを取得
