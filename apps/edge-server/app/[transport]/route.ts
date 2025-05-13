@@ -4,6 +4,8 @@ import { z } from "zod";
 
 const handler = createMcpHandler(
   (server) => {
+    console.log("▶️ MCP REDIS_URL:", process.env.REDIS_URL);
+
     server.tool(
       "get_available_icons",
       "Return all icon names",
