@@ -70,6 +70,9 @@ importers:
       '@types/node':
         specifier: ^22.15.17
         version: 22.15.17
+      typescript:
+        specifier: ^5
+        version: 5.8.3
 
 packages:
 
