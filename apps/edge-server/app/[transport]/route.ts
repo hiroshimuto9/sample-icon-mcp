@@ -1,8 +1,9 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
+import { NextRequest, NextResponse } from "next/server";
 import { getAllIcons, getIconSvg } from "sample-icon-api";
 import { z } from "zod";
 
-const handler = createMcpHandler(
+const mcpServer = createMcpHandler(
   (server) => {
     console.log("▶️ MCP REDIS_URL:", process.env.REDIS_URL);
 
@@ -45,5 +46,24 @@ const handler = createMcpHandler(
   }
 );
 
-// GET、POST、DELETEメソッドに対応（記事と同様）
-export { handler as GET, handler as POST, handler as DELETE };
+// 認証チェック関数
+function checkAuth(req: NextRequest): boolean {
+  const auth = req.headers.get('authorization') || ''
+  return auth === `Bearer ${process.env.API_KEY}` || auth === `${process.env.API_KEY}`
+}
+
+// GET ハンドラー
+export async function GET(req: NextRequest) {
+  if (!checkAuth(req)) {
+    return new NextResponse('Unauthorized', { status: 401 })
+  }
+  return mcpServer(req)  // createMcpHandler が返す handler を呼び出し
+}
+
+// POST ハンドラー
+export async function POST(req: NextRequest) {
+  if (!checkAuth(req)) {
+    return new NextResponse('Unauthorized', { status: 401 })
+  }
+  return mcpServer(req)
+}
